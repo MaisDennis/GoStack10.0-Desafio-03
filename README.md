@@ -38,12 +38,12 @@ docker start redisfastfeet
 yarn dev
 ```
 
-3. Insomnia
+3.  Insomnia
 
-Página do Insomnia:
-https://insomnia.rest/download/
+    1.  Página do Insomnia:
+        https://insomnia.rest/download/
 
-Import/Export -> Import Data -> From File -> Insomnia_2020-03-22.json
+        Import/Export -> Import Data -> From File -> Insomnia_2020-03-22.json
 
 ##  4. Enunciado do Projeto
 
