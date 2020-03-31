@@ -1,25 +1,15 @@
 import { Op } from 'sequelize';
 import * as Yup from 'yup';
-
-import {
-  parseISO,
-  format,
-  isBefore,
-  isAfter,
-  setHours,
-  startOfHour,
-} from 'date-fns';
-import pt from 'date-fns/locale/pt';
+import { isBefore, isAfter, setHours, startOfHour } from 'date-fns';
 
 import Delivery from '../models/Delivery';
 import Recipient from '../models/Recipient';
 import Deliveryman from '../models/Deliveryman';
 import Signature from '../models/Signature';
 import File from '../models/File';
-import Notification from '../schemas/Notification';
-
-import NewDeliveryMail from '../jobs/NewDeliveryMail';
-import Queue from '../../lib/Queue';
+// import Notification from '../schemas/Notification';
+// import NewDeliveryMail from '../jobs/NewDeliveryMail';
+// import Queue from '../../lib/Queue';
 
 class DeliveryController {
   async store(req, res) {
@@ -27,8 +17,6 @@ class DeliveryController {
       recipient_id: Yup.number().required(),
       deliveryman_id: Yup.number().required(),
       product: Yup.string().required(),
-
-      // start_date receives new Date().
     });
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails' });
@@ -69,7 +57,8 @@ class DeliveryController {
       deliveryman_id,
       product,
     });
-    const deliveryman = await Deliveryman.findByPk(delivery.deliveryman_id, {
+
+    await Deliveryman.findByPk(delivery.deliveryman_id, {
       iclude: [
         {
           model: Deliveryman,
@@ -79,6 +68,7 @@ class DeliveryController {
       ],
     });
 
+    /*
     await Notification.create({
       content: `Nova encomenda para ${deliveryman_id}.`,
       deliveryman: deliveryman_id,
@@ -86,7 +76,7 @@ class DeliveryController {
 
     // Fila, redis, queue, bee
     await Queue.add(NewDeliveryMail.key, { delivery, deliveryman });
-
+*/
     return res.json(delivery);
   }
 
@@ -193,11 +183,11 @@ class DeliveryController {
 
   async delete(req, res) {
     const { id } = req.params;
-    console.log(id);
+    // console.log(id);
     // id: delivery_id.
     const canceled_at = new Date();
-    let delivery = await Delivery.findByPk(id);
 
+    let delivery = await Delivery.findByPk(id);
     if (delivery.end_date) {
       return res.status(400).json({ error: 'Delivery already ended.' });
     }
@@ -210,4 +200,5 @@ class DeliveryController {
     return res.json(delivery);
   }
 }
+
 export default new DeliveryController();

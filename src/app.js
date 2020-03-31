@@ -17,11 +17,11 @@ class App {
 
     this.middlewares();
     this.routes();
-    this.exceptionHandler();
+    // this.exceptionHandler();
   }
 
   middlewares() {
-    this.server.use(Sentry.Handlers.requestHandler());
+    // this.server.use(Sentry.Handlers.requestHandler());
     this.server.use(cors());
     this.server.use(express.json());
     this.server.use(
@@ -40,7 +40,7 @@ class App {
 
   routes() {
     this.server.use(routes);
-    this.server.use(Sentry.Handlers.errorHandler());
+    // this.server.use(Sentry.Handlers.errorHandler());
   }
 
   exceptionHandler() {

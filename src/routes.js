@@ -22,12 +22,6 @@ const upload = multer(multerConfig);
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 
-routes.post(
-  '/signatures',
-  upload.single('signature'),
-  SignatureController.store
-);
-
 routes.put('/deliveries/:id', DeliveryController.update);
 
 routes.get('/deliveryaccess/:id', DeliveryAccessController.index);
@@ -42,6 +36,14 @@ routes.put('/notifications/:id', NotificationController.update);
 
 routes.get('/deliverymans', DeliverymanController.index);
 
+routes.post(
+  '/signatures',
+  upload.single('signature'),
+  SignatureController.store
+);
+
+routes.post('/files', upload.single('file'), FileController.store);
+
 // ---------------------------------------------------------------------------
 routes.use(authMiddleware);
 // ---------------------------------------------------------------------------
@@ -52,8 +54,6 @@ routes.post('/recipients', RecipientController.store);
 routes.put('/recipients/:id', RecipientController.update);
 routes.get('/recipients', RecipientController.index);
 routes.delete('/recipients/:id/cancel', RecipientController.delete);
-
-routes.post('/files', upload.single('file'), FileController.store);
 
 routes.post('/deliverymans', DeliverymanController.store);
 routes.put('/deliverymans/:id', DeliverymanController.update);

@@ -107,7 +107,7 @@ class DeliveryAccessController {
   async update(req, res) {
     const { id } = req.params; // id: delivery_id.
     const end_date = new Date();
-    const { signature_id } = req.query;
+    const { signature_id } = req.body;
 
     let delivery = await Delivery.findByPk(id);
 
@@ -117,7 +117,6 @@ class DeliveryAccessController {
     if (delivery.canceled_at) {
       return res.status(400).json({ error: 'Delivery already canceled.' });
     }
-
     if (end_date && !signature_id) {
       return res.status(400).json({ error: 'Must provide signature' });
     }

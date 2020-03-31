@@ -29,10 +29,6 @@ class Delivery extends Model {
       foreignKey: 'signature_id',
       as: 'signature',
     });
-    this.belongsTo(models.File, {
-      foreignKey: 'avatar_id',
-      as: 'avatar',
-    });
   }
 }
 export default Delivery;

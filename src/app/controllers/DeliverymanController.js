@@ -1,13 +1,5 @@
 import * as Yup from 'yup';
 import { Op } from 'sequelize';
-import {
-  parseISO,
-  format,
-  isBefore,
-  isAfter,
-  setHours,
-  startOfHour,
-} from 'date-fns';
 import Deliveryman from '../models/Deliveryman';
 import File from '../models/File';
 
@@ -20,7 +12,6 @@ class DeliverymanController {
         .required(),
       avatar_id: Yup.number(),
     });
-
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Create failed' });
     }
@@ -28,7 +19,6 @@ class DeliverymanController {
     const deliverymanExists = await Deliveryman.findOne({
       where: { email: req.body.email },
     });
-
     if (deliverymanExists) {
       return res.status(400).json({
         error: 'Create failed: Deliveryman with this e-mail already exists.',
@@ -48,7 +38,6 @@ class DeliverymanController {
         .required(),
       avatar_id: Yup.string(),
     });
-
     if (!(await schema.isValid(req.body))) {
       return res
         .status(400)
@@ -98,7 +87,6 @@ class DeliverymanController {
     return res.json(deliveryman);
   }
 
-  // pendente!!
   async delete(req, res) {
     const { id } = req.params;
     const canceled_at = new Date();
@@ -110,7 +98,8 @@ class DeliverymanController {
       attributes: ['id', 'name', 'email', 'avatar_id'],
     });
 */
-    console.log(canceled_at);
+    // console.log(canceled_at);
+
     return res.json(deliveryman);
   }
 }
