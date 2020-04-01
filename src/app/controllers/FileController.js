@@ -9,5 +9,13 @@ class FileController {
     });
     return res.json(file);
   }
+
+  async index(req, res) {
+    const { id } = req.params;
+    const file = await File.findAll({
+      where: { id },
+    });
+    return res.json(file);
+  }
 }
 export default new FileController();

@@ -43,6 +43,7 @@ routes.post(
 );
 
 routes.post('/files', upload.single('file'), FileController.store);
+routes.get('/files/:id', FileController.index);
 
 // ---------------------------------------------------------------------------
 routes.use(authMiddleware);
