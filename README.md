@@ -45,6 +45,11 @@ yarn dev
 
         Import/Export -> Import Data -> From File -> Insomnia_2020-03-31.json
 
+4.  Acesso de administrador
+
+    1.  email: admin@fastfeet.com
+    2.  senha: 123123
+
 ##  4. Enunciado do Projeto
 
 <h1 align="center">
